@@ -1,0 +1,23 @@
+{
+    "name":"rollup-plugin-pnp-resolve",
+    "version":"1.0.0",
+    "description": "plug'n'play resolver for Rollup",
+    "license": "MIT",
+    "engines": {
+        "node": ">6"
+    },
+    "homepage": "https://github.com/arcanis/rollup-plugin-pnp-resolve",
+    "bugs": {
+        "url": "https://github.com/arcanis/rollup-plugin-pnp-resolve/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/arcanis/rollup-plugin-pnp-resolve.git"
+    },
+    "keywords": [
+        "rollup",
+        "yarn",
+        "plugnplay",
+        "pnp"
+    ]
+}
