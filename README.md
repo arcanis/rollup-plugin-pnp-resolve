@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/rollup-plugin-pnp-resolve.svg)](https://www.npmjs.com/package/rollup-plugin-pnp-resolve)
 [![node version](https://img.shields.io/node/v/rollup-plugin-pnp-resolve.svg)](https://www.npmjs.com/package/rollup-plugin-pnp-resolve)
 
-*This plugin is also available for [TypeScript](https://github.com/arcanis/ts-pnp), Webpack ([pnp-webpack-plugin](https://github.com/arcanis/pnp-webpack-plugin)), and Jest ([jest-pnp-resolver](https://github.com/arcanis/jest-pnp-resolver))*
+*This plugin is also available for TypeScript ([ts-pnp](https://github.com/arcanis/ts-pnp)), Webpack ([pnp-webpack-plugin](https://github.com/arcanis/pnp-webpack-plugin)), and Jest ([jest-pnp-resolver](https://github.com/arcanis/jest-pnp-resolver))*
 
 ## Installation
 
