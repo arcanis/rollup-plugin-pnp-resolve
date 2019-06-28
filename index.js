@@ -6,7 +6,7 @@ try {
   // not in PnP; not a problem
 }
 
-module.exports = () => ({
+module.exports = (options) => ({
   name: `pnp`,
   resolveId: (importee, importer) => {
     if (!pnp) {
@@ -21,6 +21,6 @@ module.exports = () => ({
       return;
     }
 
-    return pnp.resolveRequest(importee, importer);
+    return pnp.resolveRequest(importee, importer, options);
   },
 });

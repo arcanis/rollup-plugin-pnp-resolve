@@ -39,6 +39,19 @@ module.exports = {
 };
 ```
 
+You can also pass options to be forwarded to PNP's resolveRequest
+
+```js
+const resolve = require(`rollup-plugin-pnp-resolve`);
+
+module.exports = {
+  plugins: [
+    resolve({extensions: ['.jsx', '.js']}),
+  ],
+};
+```
+
+
 ## License (MIT)
 
 > **Copyright © 2016 Maël Nison**
