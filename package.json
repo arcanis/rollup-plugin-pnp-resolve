@@ -1,6 +1,6 @@
 {
     "name": "rollup-plugin-pnp-resolve",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "description": "plug'n'play resolver for Rollup",
     "license": "MIT",
     "engines": {
