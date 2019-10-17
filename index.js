@@ -55,8 +55,8 @@ module.exports = (options) => {
         return;
       }
       
-      const location = pnp.resolveToUnqualified(request, issuer, {
-        extensions: resolverOptions.extensions,
+      const location = pnp.resolveToUnqualified(importee, importer, {
+        extensions: options.extensions,
       });
       /* 
        * intuitevly packageInformation points to @material-ui/core's package.json
