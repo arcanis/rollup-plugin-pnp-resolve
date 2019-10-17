@@ -63,9 +63,9 @@ module.exports = (options) => {
        * but it returns the workspace root 
       const locator = pnp.findPackageLocator(location);
       const packageInformation = pnp.getPackageInformation(locator); */
-      const packageJson = fse.readJsonSync(
+      const packageJson = JSON.parse(fs.readFileSync(
         path.resolve(location, './package.json'),
-      );
+      ));
       
       // Guess which main field to use
       let overriddenMain = false;
