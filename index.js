@@ -65,30 +65,41 @@ module.exports = options => {
         return;
       }
 
-      const location = pnp.resolveToUnqualified(importee, importer, {
-        extensions: options.extensions
-      });
+      try {
+        const location = pnp.resolveToUnqualified(importee, importer, {
+          extensions: options.extensions
+        });
 
-      const packageJson = JSON.parse(
-        fs.readFileSync(path.resolve(location, "./package.json"))
-      );
+        const packageJson = JSON.parse(
+          fs.readFileSync(path.resolve(location, "./package.json"))
+        );
 
-      // Guess which main field to use
-      let overriddenMain = false;
-      let overridenMainField = null;
-      for (let i = 0; i < mainFields.length; i++) {
-        const field = mainFields[i];
-        if (typeof packageJson[field] === "string") {
-          overridenMainField = packageJson[field];
-          overriddenMain = true;
-          break;
+        // Guess which main field to use
+        let overriddenMain = false;
+        let overridenMainField = null;
+        for (let i = 0; i < mainFields.length; i++) {
+          const field = mainFields[i];
+          if (typeof packageJson[field] === "string") {
+            overridenMainField = packageJson[field];
+            overriddenMain = true;
+            break;
+          }
         }
-      }
-      const mainField = overriddenMain ? overridenMainField : "main";
+        const mainField = overriddenMain ? overridenMainField : "main";
 
-      const resolution = path.resolve(location, mainField);
-      return resolution;
-      //return pnp.resolveRequest(importee, importer, options);
+        const resolution = path.resolve(location, mainField);
+        return resolution;
+        //return pnp.resolveRequest(importee, importer, options);
+      } catch (e) {
+        throw "From " +
+          importer +
+          ", could not import " +
+          importee +
+          " located at " +
+          pnp.resolveToUnqualified(importee, importer, {
+            extensions: options.extensions
+          });
+      }
     }
   };
 };
