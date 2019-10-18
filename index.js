@@ -66,31 +66,43 @@ module.exports = options => {
       }
 
       try {
-        const location = pnp.resolveToUnqualified(importee, importer, {
+
+        // Get if importee is a scoped package, a normal package or a relative path
+        const nameMatch = importee.match(/^((?<scopedName>@([^\/]+)\/([^\/]+))|(?<pathName>(\.*\/*)[^\/]*)|(?<basicName>[^\/]+))(\/(?<suffix>.+))?$/).groups; 
+        
+        const location = pnp.resolveToUnqualified(nameMatch.scopedName||nameMatch.pathName||nameMatch.basicName, importer, {
           extensions: options.extensions
         });
 
-        const packageJson = JSON.parse(
-          fs.readFileSync(path.resolve(location, "./package.json"))
-        );
+        let mainField=null;
 
-        // Guess which main field to use
-        let overriddenMain = false;
-        let overridenMainField = null;
-        for (let i = 0; i < mainFields.length; i++) {
-          const field = mainFields[i];
-          if (typeof packageJson[field] === "string") {
-            overridenMainField = packageJson[field];
-            overriddenMain = true;
-            break;
+        if(!nameMatch.suffix){
+
+          const packageJson = JSON.parse(
+            fs.readFileSync(path.resolve(location, "./package.json"))
+          );
+
+          // Guess which main field to use
+          let overriddenMain = false;
+          let overridenMainField = null;
+          for (let i = 0; i < mainFields.length; i++) {
+            const field = mainFields[i];
+            if (typeof packageJson[field] === "string") {
+              overridenMainField = packageJson[field];
+              overriddenMain = true;
+              break;
+            }
           }
+          mainField = overriddenMain ? overridenMainField : "main";
+        } else {
+          mainField = nameMatch.suffix
         }
-        const mainField = overriddenMain ? overridenMainField : "main";
-
         const resolution = path.resolve(location, mainField);
         return resolution;
-        //return pnp.resolveRequest(importee, importer, options);
+        
       } catch (e) {
+        console.log("Object.keys(pnp)");
+        console.log(pnp.getPackageInformation(importee))
         throw "From " +
           importer +
           ", could not import " +
