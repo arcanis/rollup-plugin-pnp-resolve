@@ -6,9 +6,11 @@ try {
   // not in PnP; not a problem
 }
 
+const path = require("path");
+
 module.exports = (options) => ({
   name: `pnp`,
-  resolveId: (importee, importer) => {
+  resolveId: function (importee, importer) {
     if (!pnp) {
       return;
     }
@@ -17,10 +19,20 @@ module.exports = (options) => ({
       return null;
     }
 
+    if (path.isAbsolute(importee)) {
+      return null;
+    }
+
     if (!importer) {
       return;
     }
 
-    return pnp.resolveRequest(importee, importer, options);
+    const resolved = pnp.resolveToUnqualified(importee, importer, options);
+
+    if (!resolved) {
+      return null;
+    }
+
+    return this.resolve(resolved, importer);
   },
 });
